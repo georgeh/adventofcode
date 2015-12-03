@@ -4,8 +4,7 @@
   "description": "My personal solutions for adventofcode.com",
   "main": "day1.js",
   "dependencies": {
-    "ramda": "^0.18.0",
-    "js-combinatorics": "^0.5.0"
+    "ramda": "^0.18.0"
   },
   "devDependencies": {},
   "scripts": {
