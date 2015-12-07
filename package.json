@@ -4,6 +4,8 @@
   "description": "My personal solutions for adventofcode.com",
   "main": "day1.js",
   "dependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4",
     "ramda": "^0.18.0"
   },
   "devDependencies": {},
