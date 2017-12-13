@@ -54,10 +54,10 @@ const pairs = input.split( '\n' )
 const [ FOREWARD, BACK ] = [ 'F', 'B' ];
 
 class Scanner {
-	constructor( depth ) {
+	constructor( range ) {
 		this.pos = 0;
 		this.dir = FOREWARD;
-		this.depth = depth;
+		this.range = range;
 	}
 
 	step() {
@@ -65,7 +65,7 @@ class Scanner {
 			this.dir = FOREWARD;
 		}
 
-		if ( ( this.depth - 1 ) === this.pos && FOREWARD === this.dir ) {
+		if ( ( this.range - 1 ) === this.pos && FOREWARD === this.dir ) {
 			this.dir = BACK;
 		}
 
@@ -73,8 +73,8 @@ class Scanner {
 	}
 }
 
-const newFirewall = () => pairs.reduce( ( fwall, [ range, depth ] ) => {
-	fwall[ range ] = new Scanner( depth );
+const newFirewall = () => pairs.reduce( ( fwall, [ depth, range ] ) => {
+	fwall[ depth ] = new Scanner( range );
 	return fwall;
 }, [] )
 
@@ -99,13 +99,13 @@ for ( let depth = 0; depth < firewall1.length; depth++ ) {
 }
 // console.log( hits );
 
-const score = hits.reduce( ( score, i ) => ( score + ( firewall1[ i ].depth * i ) ), 0 );
+const score = hits.reduce( ( score, depth ) => ( score + ( firewall1[ depth ].range * depth ) ), 0 );
 
 console.log( score );
 
 let wait = 0;
 let packets = [];
-let firewall2 = newFirewall();
+const firewall2 = newFirewall();
 const packetsAtEnd = () => packets.filter( p => p.depth == firewall2.length )
 
 while ( 0 === packetsAtEnd().length ) {
@@ -117,5 +117,4 @@ while ( 0 === packetsAtEnd().length ) {
 	wait++;
 }
 
-console.log( packetsAtEnd() );
 console.log( packetsAtEnd()[0].wait );
