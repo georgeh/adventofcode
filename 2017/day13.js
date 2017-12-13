@@ -51,25 +51,25 @@ const pairs = input.split( '\n' )
 	.map( l => l.split( ': ' ) )
 	.map( ( [ r, d ] ) => ( [ parseInt( r ), parseInt( d ) ] ) );
 
-const [ FOREWARD, BACK ] = [ 'F', 'B' ];
+const [ FORWARD, BACK ] = [ 'F', 'B' ];
 
 class Scanner {
 	constructor( range ) {
 		this.pos = 0;
-		this.dir = FOREWARD;
+		this.dir = FORWARD;
 		this.range = range;
 	}
 
 	step() {
 		if ( 0 === this.pos && BACK === this.dir ) {
-			this.dir = FOREWARD;
+			this.dir = FORWARD;
 		}
 
-		if ( ( this.range - 1 ) === this.pos && FOREWARD === this.dir ) {
+		if ( ( this.range - 1 ) === this.pos && FORWARD === this.dir ) {
 			this.dir = BACK;
 		}
 
-		( FOREWARD === this.dir ) ? this.pos++ : this.pos--;
+		( FORWARD === this.dir ) ? this.pos++ : this.pos--;
 	}
 }
 
@@ -106,15 +106,15 @@ console.log( score );
 let wait = 0;
 let packets = [];
 const firewall2 = newFirewall();
-const packetsAtEnd = () => packets.filter( p => p.depth == firewall2.length )
+const packetAtEnd = () => packets.find( p => p.depth == firewall2.length )
+const packetNotDetected = p => ! firewall2[ p.depth ] || firewall2[ p.depth ].pos !== 0;
 
-while ( 0 === packetsAtEnd().length ) {
-	packets = packets
-		.concat( { wait, depth: 0 } ) // add new packet
-		.filter( p => ! firewall2[ p.depth ] || firewall2[ p.depth ].pos !== 0 );
+while ( ! packetAtEnd() ) {
+	packets = packets.concat( { wait, depth: 0 } ) // add new packet
+		.filter( packetNotDetected );
 	packets.forEach( p => p.depth++ );
 	firewall2.forEach( s => s && s.step() );
 	wait++;
 }
 
-console.log( packetsAtEnd()[0].wait );
+console.log( packetAtEnd().wait );
