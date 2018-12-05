@@ -1,0 +1,8 @@
+{
+	"compilerOptions": {
+		"compileOnSave": true,
+		"lib": [ "es6" ],
+		"target": "es6",
+		"types" : ["node"],
+	}
+}

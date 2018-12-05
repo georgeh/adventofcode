@@ -17,7 +17,7 @@ let skipSize = 0;
 let list = makeList( listLength );
 let lengths = input.split( "," ).map( n => parseInt( n ) )
 
-function round( list, lengths ) {
+function knotHash( list, lengths ) {
 	// console.log( list )
 	lengths.forEach( ( length ) => {
 		const listCopy = list.slice();
@@ -39,7 +39,7 @@ function round( list, lengths ) {
 	return list;
 }
 
-list = round( list, lengths );
+list = knotHash( list, lengths );
 console.log( list[ 0 ] * list[ 1 ] );
 
 // 4692 too low
@@ -51,7 +51,7 @@ pos = 0;
 skipSize = 0;
 
 for ( let i = 0; i < 64; i++ ) {
-	list = round( list, lengths )
+	list = knotHash( list, lengths )
 }
 
 function denseHasher( list, start ) {
